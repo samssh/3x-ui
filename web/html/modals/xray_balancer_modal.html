@@ -84,6 +84,9 @@
             }
             this.balancerTags = balancerTags.filter((tag) => tag != balancer.tag);
             this.outboundTags = app.templateSettings.outbounds.filter((o) => !ObjectUtil.isEmpty(o.tag)).map(obj => obj.tag);
+            if (app.templateSettings.reverse) {
+                if (app.templateSettings.reverse.portals) this.outboundTags.push(...app.templateSettings.reverse.portals.map(b => b.tag));
+            }
             this.isEdit = isEdit;
             this.check();
             this.checkSelector();

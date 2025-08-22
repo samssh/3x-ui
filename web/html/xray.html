@@ -681,7 +681,8 @@
               // Adjust Rules
               newRules = this.templateSettings.routing.rules;
               oldRuleIndex0 != -1 ? newRules[oldRuleIndex0] = rules[0] : newRules.push(rules[0]);
-              oldRuleIndex1 != -1 ? newRules[oldRuleIndex1] = rules[1] : newRules.push(rules[1]);
+              if (rules.length > 1) oldRuleIndex1 != -1 ? newRules[oldRuleIndex1] = rules[1] : newRules.push(rules[1]);
+              else if (oldRuleIndex1 !=-1) newRules.splice(oldRuleIndex1, 1);
               this.routingRuleSettings = JSON.stringify(newRules);
             }
             reverseModal.close();
