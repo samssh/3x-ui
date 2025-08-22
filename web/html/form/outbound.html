@@ -466,6 +466,14 @@
         </template>
       </template>
 
+      <!-- loopback settings -->
+      <template v-if="outbound.protocol === Protocols.Loopback">
+        <a-form-item label='Inbound Tag'>
+          <a-input v-model="outbound.settings.inboundTag"></a-input>
+        </a-form-item>
+        </template>
+
+
       <!-- sockopt settings -->
       <a-form-item label="Sockopts">
         <a-switch v-model="outbound.stream.sockoptSwitch"></a-switch>

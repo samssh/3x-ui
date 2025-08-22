@@ -8,7 +8,8 @@ const Protocols = {
     Shadowsocks: "shadowsocks",
     Socks: "socks",
     HTTP: "http",
-    Wireguard: "wireguard"
+    Wireguard: "wireguard",
+    Loopback: "loopback"
 };
 
 const SSMethods = {
@@ -850,6 +851,7 @@ Outbound.Settings = class extends CommonClass {
             case Protocols.Socks: return new Outbound.SocksSettings();
             case Protocols.HTTP: return new Outbound.HttpSettings();
             case Protocols.Wireguard: return new Outbound.WireguardSettings();
+            case Protocols.Loopback: return new Outbound.LoopbackSettings();
             default: return null;
         }
     }
@@ -866,6 +868,7 @@ Outbound.Settings = class extends CommonClass {
             case Protocols.Socks: return Outbound.SocksSettings.fromJson(json);
             case Protocols.HTTP: return Outbound.HttpSettings.fromJson(json);
             case Protocols.Wireguard: return Outbound.WireguardSettings.fromJson(json);
+            case Protocols.Loopback: return Outbound.LoopbackSettings.fromJson(json);
             default: return null;
         }
     }
@@ -1296,3 +1299,26 @@ Outbound.WireguardSettings.Peer = class extends CommonClass {
         };
     }
 };
+
+Outbound.LoopbackSettings = class extends CommonClass {
+    constructor(
+        inboundTag = '',
+    ) {
+        super();
+        this.inboundTag = inboundTag;
+    }
+
+    static fromJson(json = {}) {
+        return new Outbound.LoopbackSettings(
+            json.inboundTag,
+        );
+    }
+
+    toJson() {
+        return {
+            inboundTag: this.inboundTag,
+        };
+    }
+};
+
+
