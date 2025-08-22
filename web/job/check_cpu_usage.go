@@ -3,6 +3,7 @@ package job
 import (
 	"strconv"
 	"time"
+	"x-ui/logger"
 
 	"x-ui/web/service"
 
@@ -20,7 +21,11 @@ func NewCheckCpuJob() *CheckCpuJob {
 
 // Here run is a interface method of Job interface
 func (j *CheckCpuJob) Run() {
-	threshold, _ := j.settingService.GetTgCpu()
+	threshold, err := j.settingService.GetTgCpu()
+	if err != nil {
+		logger.Warning("fail to get threshold setting:", err)
+		return
+	}
 
 	// get latest status of server
 	percent, err := cpu.Percent(1*time.Minute, false)

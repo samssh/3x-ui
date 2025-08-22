@@ -1,4 +1,5 @@
 #!/bin/sh
+set -ex
 case $1 in
     amd64)
         ARCH="64"
